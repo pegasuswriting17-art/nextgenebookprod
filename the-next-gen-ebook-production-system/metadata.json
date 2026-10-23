@@ -1,0 +1,8 @@
+{
+  "name": "The Next-Gen eBook Production System",
+  "description": "Pegasus Writing genre-dedicated production pods and projected author journey platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,1268 @@
+
+You are a senior frontend engineer, interaction designer, and UI/UX specialist.
+
+I am providing an existing, self-contained HTML file named `index (5).html` for Pegasus Writing's genre-specific eBook production system. I want you to MODIFY THIS EXISTING FILE, not create a new website from scratch.
+
+Your job is to transform its visual presentation into a cinematic, full-viewport streaming-style experience using the design specification below, while preserving the existing business logic, dynamic genre selector, genre-specific copy, pricing, production phases, reference-book data, sliders, and overall information architecture.
+
+The final result must be a complete, working, downloadable HTML file that I can use to replace my existing file.
+
+==================================================
+1. NON-NEGOTIABLE PRESERVATION RULES
+==================================================
+
+1. Preserve all existing genre content and the current organization of the dynamic detail sections, except for the specific first-section replacement described in Section 4 of this prompt.
+
+2. Do not delete, shorten, summarize, regenerate, or replace the existing:
+   - GENRES data.
+   - CLUSTERS taxonomy and dropdown categories.
+   - GENRE_KB softcore and hardcore knowledge data.
+   - SPECIALIST_ROLE mappings.
+   - GENRE_PHASES pricing, timelines, tiers, deliverables, tools, hierarchies, constraints, strategies, results, and exclusions.
+   - Existing reference-book records and associated links.
+   - Existing book sliders, previous/next controls, pagination dots, and keyboard interactions.
+   - Existing renderGenre() behavior and dynamic content.
+   - Existing package tables, production team descriptions, marketing content, and other genre-specific material.
+
+3. Retain all 39 genre options and their original names. Do not merge categories or silently rename genres.
+
+4. Preserve the existing content in sections 02 through 06. The specific replacement of section 01 is the only intended removal of existing genre-specific business copy.
+
+5. Preserve existing prices, numbers, timelines, and book information exactly as stored. Do not invent additional packages, prices, statistics, endorsements, or performance guarantees.
+
+6. The new author-journey information supplied below is additional data. Add it to the existing JavaScript without overwriting or restructuring the existing data objects unnecessarily.
+
+7. Use a data-driven implementation. Changing the genre must change its author-journey stages automatically, alongside the existing genre-specific content.
+
+8. All current interactions must continue to work after the redesign. If you change DOM elements or class names, update every dependent JavaScript selector, event listener, and function accordingly.
+
+9. Do not return a design mockup, an implementation plan, partial snippets, or a simplified version of the file. Return the complete modified, runnable HTML file.
+
+==================================================
+2. VISUAL DIRECTION: CINEMATIC LIQUID GLASS
+==================================================
+
+Create a premium, cinematic interface inspired by a movie-streaming homepage.
+
+The first viewport must be a full-height hero section. The existing detailed genre content continues underneath it, with normal vertical page scrolling.
+
+Use these implementation priorities:
+- Preserve the standalone HTML/CSS/JavaScript architecture to minimize migration risk.
+- Reproduce the specified React/Tailwind/Lucide reference visually and behaviorally using compatible CSS and JavaScript.
+- If you use a library for icons, load it reliably and ensure it works in the standalone HTML.
+- Do not require a build step or a backend.
+- Do not remove existing functional code just to simplify the implementation.
+
+FONT
+
+Import Inter from Google Fonts using weights 300–700.
+
+Use Inter throughout the cinematic hero and the redesigned interface.
+
+BACKGROUND VIDEO
+
+Use this exact video URL:
+
+https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_094145_4a271a6c-3869-4f1c-8aa7-aeb0cb227994.mp4
+
+Implement it as follows:
+- position: fixed;
+- inset: 0;
+- width: 100%;
+- height: 100%;
+- object-fit: cover;
+- z-index: 0;
+- autoplay;
+- muted;
+- loop;
+- playsinline.
+
+The video must remain behind the interface. Use pure black as the fallback background.
+
+Do not add a black-to-transparent gradient, a vignette, a darkening gradient, or another gradient overlay over the video.
+
+BOTTOM BLUR OVERLAY
+
+Create one fixed, full-screen overlay at z-index: 1.
+
+Use strong backdrop blur with a blur of approximately 24px.
+
+The blur must be visible predominantly near the bottom and fade to transparent toward the middle of the screen.
+
+Use exactly this mask, including the browser prefix:
+
+-webkit-mask-image: linear-gradient(to top, black 0%, transparent 45%);
+mask-image: linear-gradient(to top, black 0%, transparent 45%);
+
+Set pointer-events: none.
+
+This overlay is a blur effect, not a darkening layer. Do not use a separate gradient to darken the video.
+
+Ensure the content remains above the overlay with appropriate z-index values.
+
+==================================================
+3. EXACT LIQUID GLASS BUTTON EFFECT
+==================================================
+
+Create a reusable `.liquid-glass` CSS class. Use it for Search, the profile circle, the hamburger menu, the secondary hero CTA, navigation arrows, and other appropriate interactive controls.
+
+Implement these properties:
+
+background: rgba(255, 255, 255, 0.01);
+background-blend-mode: luminosity;
+-webkit-backdrop-filter: blur(4px);
+backdrop-filter: blur(4px);
+border: none;
+box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+position: relative;
+overflow: hidden;
+
+Create a `::before` pseudo-element with:
+
+position: absolute;
+inset: 0;
+border-radius: inherit;
+padding: 1.4px;
+
+Use this gradient:
+
+linear-gradient(
+  180deg,
+  rgba(255,255,255,0.45) 0%,
+  rgba(255,255,255,0.15) 20%,
+  rgba(255,255,255,0) 40%,
+  rgba(255,255,255,0) 60%,
+  rgba(255,255,255,0.15) 80%,
+  rgba(255,255,255,0.45) 100%
+)
+
+Create a border-only gradient stroke using:
+
+-webkit-mask:
+  linear-gradient(#fff 0 0) content-box,
+  linear-gradient(#fff 0 0);
+
+-webkit-mask-composite: xor;
+mask-composite: exclude;
+pointer-events: none;
+
+The gradient must form a subtle illuminated edge, not fill the center of the button.
+
+Add restrained hover and focus states. Avoid exaggerated glows, colorful shadows, and excessive animation.
+
+==================================================
+4. REPLACE THE FIRST SECTION FOR EVERY GENRE
+==================================================
+
+This is the most important CONTENT change.
+
+Find the existing dynamically rendered section that starts with:
+
+<!-- 01. THE REAL DIFFERENCE (opening objection) -->
+
+It currently contains:
+- The section label “Let's Be Straight About This”.
+- The quote about knowing someone who can write the book for half the price.
+- The response comparing lower-cost freelancers with a dedicated team.
+
+Remove that entire section and replace it with a new section numbered 01 titled:
+
+PROJECTED AUTHOR JOURNEY
+
+The section must no longer focus on comparing freelancers, arguing about prices, or criticizing other service providers.
+
+Instead, show how the author's specific genre can potentially develop from a book idea into an audience, owned community, products, authority, and longer-term business opportunities.
+
+Suggested heading:
+
+“Your Book Is the Beginning. Here's Where It Could Lead.”
+
+Suggested supporting copy:
+
+“Every genre creates different opportunities to build an audience, develop valuable content, grow an owned community, and extend the book into products, speaking, education, partnerships, or other relevant opportunities.”
+
+Do not present the pathway as guaranteed revenue or promised results. Describe it as a projected strategic journey with opportunities that depend on the author's expertise, execution, audience, and market demand.
+
+DYNAMIC BEHAVIOR
+
+Add a new JavaScript object named `GENRE_BUSINESS_PATHWAYS`, using the full JSON dataset provided at the end of this prompt.
+
+For each selected genre:
+1. Read its exact matching record.
+2. Render the seven supplied pathway items, in their original order.
+3. Display the selected genre and the relevant pathway stages.
+4. Update the section automatically whenever `renderGenre(genreKey)` runs.
+5. Escape dynamic text before inserting it into HTML, using the existing `esc()` helper where appropriate.
+6. Preserve the rest of the genre rendering logic.
+
+Do not replace the complete rendering system with static markup.
+
+PROJECTED JOURNEY VISUALIZATION
+
+Use a visually engaging pathway with numbered stages and connecting arrows.
+
+Each stage should contain a short title, its original genre-specific description, and an appropriate icon.
+
+Use this layout:
+- Desktop: horizontal progression of connected stages where space permits, with intentional wrapping if needed.
+- Tablet: a flexible two- or three-column grid with visible directional flow.
+- Mobile: a clean vertical timeline with a visible connecting line and appropriately spaced stage cards.
+
+The pathway should look like a premium strategic roadmap, not a generic flowchart or an ordinary bullet list.
+
+Use the exact supplied pathway descriptions. You may visually emphasize key phrases, but do not rewrite the underlying data into promises.
+
+For the numbered journey cards:
+- Use rounded corners consistent with the reference's restrained glass treatment.
+- Use subtle translucent black or white-tinted surfaces.
+- Use fine white borders and delicate light highlights.
+- Use white headings and gray supporting text.
+- Keep the cards readable over the moving video.
+- Do not use the original gold or purple accents.
+- Do not use colorful gradients.
+
+A subtle white outline or border emphasis can distinguish milestones from supporting information.
+
+IMPORTANT: Keep the existing section numbering and subsequent sections intact. The new journey becomes section 01. The existing section 02 remains the economics section; section 03 remains the three-layer team; section 04 retains the dedicated-service value; section 05 retains development, production, and publishing; section 06 retains the reference books.
+
+Do not delete the existing economics section just because it contains other comparisons. The requested replacement concerns the opening objection section only.
+
+==================================================
+5. CINEMATIC HERO STRUCTURE
+==================================================
+
+Create a full-viewport hero with `min-height: 100svh` and a black fallback background.
+
+Use the background video and bottom blur overlay described above.
+
+The hero should occupy the opening viewport. The existing genre detail sections must remain below it and accessible through normal scrolling.
+
+NAVBAR
+
+Position the navbar above the video content with z-index: 50.
+
+Use a horizontal flex layout:
+- justify-between;
+- padding: px-4 sm:px-6 md:px-12;
+- vertical padding: py-4 md:py-6.
+
+LEFT: BRAND LOGO
+
+Display:
+
+PEGASUS WRITING
+
+Style it as a clean, high-contrast text wordmark with a cinematic feel.
+
+Use white text, suitable font weight, and generous letter spacing.
+
+Do not introduce a colorful logo or a new company identity.
+
+Apply the blur-fade-up animation with a delay of 0ms.
+
+CENTER: DESKTOP NAVIGATION
+
+Display five functional navigation links on large screens only:
+
+1. Author Journey
+2. Production Team
+3. Our Approach
+4. Publishing Roadmap
+5. Book Examples
+
+These links should connect to the actual sections in the existing page.
+
+Use:
+- text-sm;
+- white text;
+- hover:text-gray-300;
+- transition-colors;
+- appropriate horizontal spacing.
+
+The navigation links must not point to nonexistent section IDs.
+
+Suggested anchor targets:
+- Author Journey → the new dynamic section 01.
+- Production Team → the existing dynamic section 03.
+- Our Approach → the existing dynamic section 04.
+- Publishing Roadmap → the existing dynamic section 05.
+- Book Examples → the existing dynamic section 06.
+
+Assign stable IDs to these sections when the dynamic content is generated. Do not break their existing layout or numbering.
+
+Apply staggered blur-fade-up delays of 100ms, 150ms, 200ms, 250ms, and 300ms.
+
+RIGHT: SEARCH AND PROFILE
+
+Search button:
+- Visible at sm and above.
+- Rounded-full liquid-glass style.
+- Search icon, size 18.
+- Text: “Search”.
+- Padding: px-4 md:px-6 py-2.
+- Animation delay: 350ms.
+
+Make Search useful: clicking it should open a small, accessible genre-search interface that searches the existing genre list and allows the user to select a genre. Selecting a result must update the existing genre dropdown and call the existing genre-rendering function. Do not create a separate genre dataset for the search feature.
+
+Profile button:
+- Visible at sm and above.
+- Width and height: 40px.
+- Rounded-full liquid-glass styling.
+- User icon, size 18.
+- Animation delay: 400ms.
+
+Because this is an author-service interface rather than a logged-in account application, the profile-style icon should function as a shortcut to the Projected Author Journey. Give it a useful accessible label, such as “Go to author journey”.
+
+MOBILE HAMBURGER
+
+Below the lg breakpoint:
+- Hide desktop links.
+- Show a 40px circular liquid-glass menu button.
+- Use Menu and X icons.
+- Animate the icon transition with rotate-180, opacity, and scale-50.
+- Use duration-500 and ease-out.
+- Animation delay: 350ms.
+
+MOBILE MENU
+
+Create an absolutely positioned dropdown beneath the navbar, top approximately 72px, z-index: 40.
+
+Closed state:
+- opacity: 0;
+- transform: translateY(-16px);
+- pointer-events: none.
+
+Open state:
+- opacity: 1;
+- transform: translateY(0).
+
+Use a 500ms ease-out transition.
+
+Apply:
+- bg-gray-900/95;
+- backdrop-blur-lg;
+- border-top and border-bottom in gray-800;
+- shadow-2xl.
+
+Display the same five functional navigation links as a vertical list. Use py-3, px-3, rounded-lg, and a subtle gray hover background.
+
+Use staggered 50ms slide-in delays.
+
+Below sm, include Search and Profile/Author Journey shortcuts in a bordered section at the bottom.
+
+The menu must open and close properly, close after navigation, and remain usable with keyboard input.
+
+==================================================
+6. HERO CONTENT: ADAPT IT TO PEGASUS WRITING
+==================================================
+
+The reference hero contains movie metadata, an entertainment title, a description, CTA buttons, and Previous/Next controls.
+
+Keep that layout and visual rhythm, but adapt its content to the actual Pegasus Writing application.
+
+Do not display movie-specific details such as IMDB ratings, movie runtimes, release dates, “Movies”, or “Watch Now” unless they are replaced by appropriate book-production terminology.
+
+HERO CONTENT AREA
+
+Use a flex container that fills the remaining viewport height and aligns content toward the bottom:
+
+flex-1;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+
+Use responsive padding equivalent to:
+
+px-4 sm:px-6 md:px-12;
+pb-8 md:pb-16;
+
+Set z-index: 10.
+
+Inside, use:
+- flex-col on mobile;
+- md:flex-row on desktop;
+- items-end;
+- gap-8.
+
+LEFT CONTENT
+
+Metadata row:
+Use small, horizontally arranged metadata items with appropriate icons.
+
+Use information already supported by the HTML, such as:
+- GENRE-SPECIFIC PRODUCTION
+- SELECTED GENRE CATEGORY
+- DEVELOPMENT → PRODUCTION → PUBLISHING
+
+You may use Lucide icons such as BookOpen, Layers, and Sparkles.
+
+The category must correspond to the selected genre. Do not invent ratings, durations, publication dates, or numerical performance claims.
+
+Use a compact text size and responsive wrapping.
+
+Main title:
+Use a high-impact, clean title with:
+- text-3xl on mobile;
+- sm:text-5xl;
+- md:text-6xl;
+- lg:text-7xl;
+- font-weight around 400;
+- letter-spacing around -0.04em.
+
+Use this title structure:
+
+“The Next-Gen [Selected Genre] Production System”
+
+Retain the spirit of the existing Pegasus Writing title. The selected genre must update dynamically. On initial load, before a genre is selected, show “The Next-Gen eBook Production System”.
+
+Description:
+Use text-base on mobile, sm:text-lg, and md:text-xl.
+
+Use gray-400 for the description and a max-width around 42rem.
+
+When a genre is selected, use its existing `GENRES[genreKey].tagline` as the description. Do not replace the existing tagline data.
+
+Before selection, show a concise instruction explaining that users can select a genre to explore its production system and projected author journey.
+
+PRIMARY CTA
+
+Use a white, solid-colored, rounded-full button with black text.
+
+This is the only solid-colored interactive button in the hero.
+
+Style it with:
+- rounded-full;
+- font-medium;
+- px-6 sm:px-8;
+- py-2.5 sm:py-3;
+- hover:bg-gray-200.
+
+Use a Play-style or ArrowRight Lucide icon.
+
+Adapt the label to “Explore Journey”.
+
+Behavior:
+- If a genre has been selected, scroll to the dynamic Projected Author Journey section.
+- If no genre is selected, focus the genre selector and prompt the user to choose a genre.
+
+Animation delay: 600ms.
+
+SECONDARY CTA
+
+Use a rounded-full, liquid-glass button with the same responsive padding as the primary CTA.
+
+Label: “View Publishing Plan”.
+
+Clicking it should scroll to the existing section 05, where that genre's real package tiers and development, production, and publishing phases are displayed.
+
+Do not fabricate another publishing plan or duplicate pricing.
+
+Animation delay: 700ms.
+
+RIGHT-SIDE NAVIGATION
+
+Display a row of two liquid-glass pill buttons:
+- Previous Genre
+- Next Genre
+
+Use ChevronLeft and ChevronRight icons.
+
+Use px-4 sm:px-6 py-2.5 sm:py-3.
+
+On mobile, align the buttons to the left. On desktop, align them to the right.
+
+These controls must navigate through the existing genre dropdown in its existing order, update the dropdown's selected value, and call `renderGenre()`.
+
+Use a consistent and predictable rule at the beginning and end of the list. Cycling from the final genre back to the first, and vice versa, is acceptable.
+
+Animation delays:
+- Previous: 800ms.
+- Next: 900ms.
+
+GENRE SELECTOR
+
+Retain the existing `#genreSelect`, all original options, all original optgroups, the existing category taxonomy, and the existing rendering function.
+
+Place the genre selector within the hero in a compact, visually integrated position that remains easy to discover.
+
+Style the selector to match the cinematic interface:
+- dark or nearly transparent background;
+- subtle white border;
+- white text;
+- rounded corners;
+- readable option text;
+- visible keyboard focus.
+
+Keep `#clusterChipWrap`, the category chip, and the breadcrumb working as they currently do. Recolor them to suit the new monochrome palette.
+
+Selecting a genre must continue to render the full, correct genre-specific content below the hero.
+
+If practical, make the initial hero fit comfortably in one viewport on a standard desktop while preserving the title, genre selector, and main CTA.
+
+==================================================
+7. BLUR-FADE-UP ANIMATIONS
+==================================================
+
+Create the following keyframes:
+
+@keyframes blurFadeUp {
+  from {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+Create `.animate-blur-fade-up` with:
+
+animation: blurFadeUp 1s ease-out forwards;
+opacity: 0;
+
+Apply the animation to the logo, desktop navigation links, Search, profile button, mobile menu control, hero metadata, title, description, genre selector, primary CTA, secondary CTA, and Previous/Next buttons.
+
+Use the stagger delays specified above.
+
+Apply restrained staggered entrances to the new Projected Author Journey cards and other appropriate content revealed after genre selection. Do not make the existing long-form content difficult to read.
+
+Respect `prefers-reduced-motion: reduce` and disable or substantially reduce motion when requested by the user's operating system.
+
+Ensure hidden mobile-menu elements do not create unexpected tab stops.
+
+==================================================
+8. COLOR PALETTE AND EXISTING CARD RESTYLING
+==================================================
+
+Replace the original gold and purple presentation with the monochrome liquid-glass palette from the cinematic reference.
+
+Background:
+- Pure black: #000000.
+- The supplied video is the visible background imagery.
+
+Primary text:
+- White: #FFFFFF.
+
+Secondary text:
+- Gray-400, approximately #9CA3AF.
+
+Subtle borders:
+- rgba(255, 255, 255, 0.12) to rgba(255, 255, 255, 0.20).
+
+Glass surfaces:
+- Nearly transparent white with restrained blur and highlights.
+
+The only solid-colored hero button should be the white primary CTA with black text.
+
+Do not introduce gold, purple, blue, green, or other colorful accents.
+
+RESTYLE EXISTING CONTENT WITHOUT RESTRUCTURING IT
+
+The existing file contains:
+- ordinary `.card` elements;
+- quality-control cards;
+- phase tables;
+- `.layer-card` team cards;
+- `.econ-panel` comparison cards;
+- knowledge panels;
+- production tables;
+- book cards and sliders;
+- callouts and chips;
+- multiple responsive grids.
+
+Preserve their structure, data, and content.
+
+Restyle those components to match the black-and-white cinematic design:
+- Near-black translucent card backgrounds.
+- Thin white or gray borders.
+- White section titles.
+- Gray explanatory copy.
+- Subtle glass-like highlights on suitable interactive elements.
+- Clean separators and visible table boundaries.
+- Strong text contrast for readability.
+
+Use restrained background opacity on the content cards so the video does not overwhelm the detailed text.
+
+Do not apply the `.liquid-glass` button effect indiscriminately to every card. Cards and tables should remain readable and visually stable.
+
+Replace all old gold and purple CSS-variable references with suitable monochrome equivalents. Inspect both CSS variables and hard-coded colors, including inline styles, pseudo-elements, button states, chips, badges, slider dots, book metadata, table rows, and the initial empty state.
+
+Do not leave partially gold or purple components behind.
+
+Maintain the existing typography hierarchy where it supports the original content and use Inter for the redesigned cinematic interface.
+
+==================================================
+9. KEEP THE EXISTING CONTENT BELOW THE HERO
+==================================================
+
+After the full-height hero, retain the following six dynamic content sections in this order:
+
+01. PROJECTED AUTHOR JOURNEY
+    New section using the genre-specific pathway data supplied below.
+
+02. THE ECONOMICS OF “CHEAPER”
+    Preserve the existing content, explanatory paragraphs, economics panels, and conclusion.
+
+03. THE THREE LAYERS
+    Preserve Finishers, Dreamers, Enablers, the genre-specific knowledge data, and the connections between the layers.
+
+04. WHAT DEDICATED ACTUALLY BUYS YOU
+    Preserve the existing specialist role, anti-template copy, checkpoints, and genre-specific milestone.
+
+05. DEVELOPMENT / PRODUCTION / PUBLICATION
+    Preserve the current dynamic phase tables, package tiers, costs, timelines, deliverables, tools, staff hierarchy, constraints, strategies, results, exclusions, and recommended client path.
+
+06. REFERENCE BOOKS
+    Preserve the original reference-book data, available links, slider layout, navigation, dots, keyboard support, and responsive behavior.
+
+These sections must remain available when the user changes genres.
+
+The hero is full-height, but the overall page remains scrollable because the existing detailed content must be preserved.
+
+Do not turn the entire application into a non-scrolling, single-screen movie page.
+
+==================================================
+10. RESPONSIVE BEHAVIOR
+==================================================
+
+Below 640px:
+- Use smaller hero typography and tighter spacing.
+- Hide the top-level Search and profile buttons.
+- Make Search and the author-journey shortcut available through the mobile menu.
+- Hide desktop navigation links.
+- Display the hamburger control.
+- Stack the hero content cleanly.
+- Make the seven journey stages a vertical timeline.
+- Ensure phase tables, book sliders, and other existing components remain usable.
+- Prevent horizontal page overflow.
+
+From 640px upward:
+- Display Search and the profile-style shortcut.
+- Increase hero padding and typography appropriately.
+
+From 768px upward:
+- Lay out hero copy and navigation controls side by side where space permits.
+- Use flexible grids for pathway and detail cards.
+
+From 1024px upward:
+- Display the full desktop navbar.
+- Hide the mobile hamburger.
+- Display the five navigation links.
+
+Keep the page usable on desktop, tablet, and mobile, including narrower mobile screens.
+
+==================================================
+11. FUNCTIONALITY, ACCESSIBILITY, AND TECHNICAL QUALITY
+==================================================
+
+1. Keep the existing single-file application runnable without a build process.
+
+2. Keep `renderGenre(genreKey)` as the main dynamic rendering mechanism unless a carefully tested adaptation is necessary.
+
+3. Integrate `GENRE_BUSINESS_PATHWAYS` without overwriting the other data objects.
+
+4. Use genre names that exactly match the existing dropdown values.
+
+5. Confirm every one of the 39 genres has a corresponding journey record.
+
+6. Use the existing genre selector as the single source of truth for current genre selection. Synchronize dropdown changes, Search selection, and Previous/Next controls.
+
+7. Preserve the existing genre dropdown optgroups. Search results should not introduce duplicate genres or duplicate option records.
+
+8. Give buttons, selectors, mobile-menu controls, icons, and search inputs appropriate accessible labels.
+
+9. Provide keyboard-operable interactions, visible focus states, and semantic navigation.
+
+10. Make video playback resilient. Use the black background as a fallback if video playback fails or is unavailable.
+
+11. Ensure the hero's text remains visible and legible over moving video frames without adding a prohibited gradient-darkening overlay.
+
+12. Avoid duplicate IDs and event listeners after repeated genre selections.
+
+13. Ensure the genre-search interface and mobile menu close appropriately when a selection is made.
+
+14. If you use icon markup inserted dynamically, initialize the icons reliably after content changes.
+
+15. Preserve the existing reduced-motion support.
+
+16. Validate every internal anchor and every dynamic pathway lookup.
+
+17. Do not break existing reference-book links or change their destination URLs.
+
+18. Do not replace actual production data with placeholder content.
+
+19. Do not truncate any of the existing JavaScript arrays, mappings, genre descriptions, or reference-book records.
+
+20. Keep all data and functionality in the final exported HTML. Do not provide a source file that relies on unprovided local assets.
+
+==================================================
+12. NEW DATA: COMPLETE GENRE-TO-BUSINESS PATHWAYS
+==================================================
+
+Add the following dataset as a new JavaScript constant named `GENRE_BUSINESS_PATHWAYS`.
+
+The `genre` property in every entry must match the existing genre name exactly.
+
+The `pathway` arrays are authoritative: preserve their descriptions, order, and number of stages. Do not create missing stages simply to force every genre into the same number of steps.
+
+Use the supplied generic business-flow concept as a strategic guide, while prioritizing each genre's exact pathway array for the displayed content.
+
+DATASET:
+
+{
+  "title": "Genre-to-Business Pathways",
+  "flow": "Genre idea → Defined audience → Useful content → Owned email/community → Book or product → Speaking topic → Workshop/consulting → Partnership or licensing",
+  "genres": [
+    {
+      "category": "Fiction",
+      "genre": "Action & Adventure",
+      "pathway": [
+        "Story/action proof",
+        "Adventure audience",
+        "YouTube clips, podcasts, conventions",
+        "Email list",
+        "Book sales",
+        "Speaking on courage, risk, and leadership",
+        "Screen/game licensing"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Crime & Mystery",
+      "pathway": [
+        "Mystery expertise",
+        "Crime readers and investigators",
+        "Case analysis, podcasts, newsletters",
+        "Subscriber list",
+        "Books and events",
+        "Speaking on investigation, justice, and decision-making",
+        "Media partnerships"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Mystery / Thriller",
+      "pathway": [
+        "Suspense concept",
+        "Thriller readers",
+        "Teasers, reviews, book clubs",
+        "Email capture",
+        "Series sales",
+        "Speaking on tension, storytelling, and psychology",
+        "Adaptation/licensing"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Fantasy",
+      "pathway": [
+        "World-building ability",
+        "Fantasy community",
+        "Lore content, fan groups, conventions",
+        "Community/email list",
+        "Books, merchandise, memberships",
+        "Speaking on imagination and creativity",
+        "IP licensing"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Science Fiction",
+      "pathway": [
+        "Future-focused ideas",
+        "Technology and future-thinking audience",
+        "Essays, podcasts, tech events",
+        "Newsletter",
+        "Books and workshops",
+        "Speaking on innovation and future trends",
+        "Corporate advisory"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Horror",
+      "pathway": [
+        "Distinctive fear concept",
+        "Horror fans",
+        "Short fiction, audio, festivals, social clips",
+        "Email list",
+        "Books, memberships, events",
+        "Speaking on fear and storytelling",
+        "Film/audio adaptation"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Romance",
+      "pathway": [
+        "Emotional promise",
+        "Romance readers",
+        "Social storytelling, reader communities, book influencers",
+        "Reader list",
+        "Series, bundles, subscriptions",
+        "Speaking on relationships and emotional storytelling",
+        "Adaptation/licensing"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Historical Fiction",
+      "pathway": [
+        "Historical setting",
+        "History and fiction readers",
+        "Research content, museums, historical groups",
+        "Newsletter",
+        "Books and tours",
+        "Speaking on history, memory, and culture",
+        "Film/education partnerships"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Humor / Comedy",
+      "pathway": [
+        "Distinctive comic voice",
+        "Comedy audience",
+        "Short videos, live events, podcasts",
+        "Fan list",
+        "Books, shows, merchandise",
+        "Speaking on humor and communication",
+        "Brand partnerships"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Contemporary Fiction",
+      "pathway": [
+        "Relatable social theme",
+        "Modern fiction readers",
+        "Essays, readings, social commentary",
+        "Email list",
+        "Books and literary events",
+        "Speaking on culture and identity",
+        "Media opportunities"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Literary Fiction",
+      "pathway": [
+        "Distinctive literary perspective",
+        "Educated readers and institutions",
+        "Reviews, readings, literary journals",
+        "Reader list",
+        "Books, courses, festivals",
+        "Speaking on literature and society",
+        "Academic partnerships"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Dystopian Fiction",
+      "pathway": [
+        "Social warning or future scenario",
+        "Readers concerned about society",
+        "Commentary, debates, podcasts",
+        "Newsletter",
+        "Books and talks",
+        "Speaking on systems, risk, and social change",
+        "Policy/education work"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Urban Fiction",
+      "pathway": [
+        "Local identity and lived experience",
+        "Urban readers and communities",
+        "Community events, social storytelling",
+        "Email/SMS list",
+        "Books, events, merchandise",
+        "Speaking on identity, community, and resilience",
+        "Cultural partnerships"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Westerns",
+      "pathway": [
+        "Frontier conflict/theme",
+        "Genre readers and heritage audiences",
+        "Historical content, festivals, podcasts",
+        "Email list",
+        "Books and events",
+        "Speaking on courage, independence, and leadership",
+        "Film/heritage partnerships"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Comics & Graphic Novels",
+      "pathway": [
+        "Visual concept",
+        "Comic readers and fandoms",
+        "Panels, art posts, conventions",
+        "Community list",
+        "Books, prints, merchandise",
+        "Speaking on visual storytelling",
+        "Publishing/licensing"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Drama & Plays",
+      "pathway": [
+        "Stage concept",
+        "Theatre audiences and institutions",
+        "Readings, festivals, theatre networks",
+        "Subscriber list",
+        "Ticketed productions, scripts, workshops",
+        "Speaking on performance and human conflict",
+        "Theatre partnerships"
+      ]
+    },
+    {
+      "category": "Fiction",
+      "genre": "Poetry",
+      "pathway": [
+        "Distinctive poetic voice",
+        "Poetry and cultural audience",
+        "Readings, spoken-word videos, literary events",
+        "Community list",
+        "Collections, performances, workshops",
+        "Speaking on language and emotion",
+        "Cultural grants/partnerships"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Autobiography / Memoir",
+      "pathway": [
+        "Personal transformation",
+        "Relatability audience",
+        "Story clips, interviews, essays",
+        "Email list",
+        "Book sales",
+        "Speaking on resilience and transformation",
+        "Coaching or workshops"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Biography",
+      "pathway": [
+        "Subject expertise",
+        "History, leadership, or fan audience",
+        "Research stories, documentaries, podcasts",
+        "Newsletter",
+        "Books and talks",
+        "Speaking on legacy and leadership",
+        "Media/education licensing"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Philosophy",
+      "pathway": [
+        "Big question or framework",
+        "Thinkers, leaders, students",
+        "Essays, debates, podcasts",
+        "Newsletter",
+        "Books, courses, seminars",
+        "Speaking on meaning and decision-making",
+        "Executive education"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Psychology",
+      "pathway": [
+        "Behavioral insight",
+        "Professionals and general readers",
+        "Practical posts, assessments, podcasts",
+        "Segmented list",
+        "Books and workshops",
+        "Speaking on behavior and performance",
+        "Corporate training"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "True Crime",
+      "pathway": [
+        "Investigation/storytelling authority",
+        "Crime audience",
+        "Podcast, video, newsletter",
+        "Fan list",
+        "Books, events, memberships",
+        "Speaking on justice and investigation",
+        "Media partnerships"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Health & Wellness",
+      "pathway": [
+        "Specific health outcome",
+        "Consumers, employers, communities",
+        "Educational content, webinars, assessments",
+        "Email list",
+        "Books, programs, workshops",
+        "Speaking on wellbeing and performance",
+        "Corporate wellness"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Self-Help & Personal Development",
+      "pathway": [
+        "Clear transformation",
+        "People seeking improvement",
+        "Daily content, challenges, email sequence",
+        "Community",
+        "Books, courses, coaching",
+        "Speaking on growth and execution",
+        "Training programs"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Travel",
+      "pathway": [
+        "Distinctive travel angle",
+        "Travelers and destination audiences",
+        "Guides, videos, itineraries",
+        "Subscriber list",
+        "Books, tours, affiliates",
+        "Speaking on culture and exploration",
+        "Tourism partnerships"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Sports",
+      "pathway": [
+        "Performance insight",
+        "Athletes, coaches, fans, companies",
+        "Analysis, interviews, clinics",
+        "Email list",
+        "Books, clinics, programs",
+        "Speaking on discipline and teamwork",
+        "Sponsorships"
+      ]
+    },
+    {
+      "category": "Non-Fiction & Personal Development",
+      "genre": "Music & Performing Arts",
+      "pathway": [
+        "Artistic expertise",
+        "Fans, creators, institutions",
+        "Performances, interviews, educational content",
+        "Community list",
+        "Books, shows, courses",
+        "Speaking on creativity and performance",
+        "Brand/institution partnerships"
+      ]
+    },
+    {
+      "category": "Business & Professional",
+      "genre": "Business & Economics",
+      "pathway": [
+        "Business insight",
+        "Executives, founders, professionals",
+        "LinkedIn, reports, podcasts",
+        "Executive list",
+        "Books, keynotes, workshops",
+        "Speaking on growth and strategy",
+        "Consulting"
+      ]
+    },
+    {
+      "category": "Business & Professional",
+      "genre": "Political Science",
+      "pathway": [
+        "Political framework",
+        "Institutions, students, media, policy audience",
+        "Commentary, briefings, articles",
+        "Newsletter",
+        "Books and events",
+        "Speaking on governance and public affairs",
+        "Advisory work"
+      ]
+    },
+    {
+      "category": "Business & Professional",
+      "genre": "Military & War",
+      "pathway": [
+        "Strategy/history expertise",
+        "Defense, leadership, history audience",
+        "Analysis, documentaries, podcasts",
+        "Specialist list",
+        "Books and briefings",
+        "Speaking on strategy and leadership",
+        "Institutional contracts"
+      ]
+    },
+    {
+      "category": "Business & Professional",
+      "genre": "Science & Technology",
+      "pathway": [
+        "Technical or future insight",
+        "Technology companies and professionals",
+        "Articles, demos, podcasts, conferences",
+        "Professional newsletter",
+        "Books, keynotes, workshops",
+        "Speaking on innovation",
+        "Corporate advisory"
+      ]
+    },
+    {
+      "category": "Academic & History",
+      "genre": "Educational / Academic",
+      "pathway": [
+        "Subject expertise",
+        "Students, teachers, institutions",
+        "Research content, webinars, teaching resources",
+        "Educator list",
+        "Books, courses, training",
+        "Speaking on learning and education",
+        "Institutional contracts"
+      ]
+    },
+    {
+      "category": "Academic & History",
+      "genre": "History",
+      "pathway": [
+        "Historical interpretation",
+        "Readers, educators, museums, media",
+        "Articles, lectures, documentaries",
+        "Newsletter",
+        "Books, tours, talks",
+        "Speaking on leadership and societal change",
+        "Museum/media partnerships"
+      ]
+    },
+    {
+      "category": "Academic & History",
+      "genre": "Art & Architecture",
+      "pathway": [
+        "Visual/design expertise",
+        "Designers, developers, institutions",
+        "Portfolio, case studies, exhibitions",
+        "Professional list",
+        "Books, lectures, workshops",
+        "Speaking on design and culture",
+        "Consulting and partnerships"
+      ]
+    },
+    {
+      "category": "Academic & History",
+      "genre": "Non-Fiction General",
+      "pathway": [
+        "Useful expertise",
+        "Broad problem-focused audience",
+        "Articles, guides, interviews",
+        "Email list",
+        "Books, courses, workshops",
+        "Speaking on the central transformation",
+        "Advisory products"
+      ]
+    },
+    {
+      "category": "Children’s & Young Adult",
+      "genre": "Children’s Literature",
+      "pathway": [
+        "Memorable stories",
+        "Parents, schools, libraries",
+        "Readings, classroom content, events",
+        "Parent/educator list",
+        "Books, school visits, merchandise",
+        "Speaking on literacy and imagination",
+        "Licensing"
+      ]
+    },
+    {
+      "category": "Children’s & Young Adult",
+      "genre": "Young Adult (YA)",
+      "pathway": [
+        "Youth-relevant theme",
+        "Teen readers, parents, educators",
+        "Social content, school events, book communities",
+        "Reader list",
+        "Books, visits, workshops",
+        "Speaking on identity and growing up",
+        "Education partnerships"
+      ]
+    },
+    {
+      "category": "Children’s & Young Adult",
+      "genre": "Young Adult Fantasy",
+      "pathway": [
+        "Fantasy world and characters",
+        "YA fandom",
+        "Lore, illustrations, fan communities",
+        "Community list",
+        "Series, merchandise, events",
+        "Speaking on creativity and imagination",
+        "Adaptation/licensing"
+      ]
+    },
+    {
+      "category": "Lifestyle",
+      "genre": "Cookbooks & Food",
+      "pathway": [
+        "Distinctive food promise",
+        "Home cooks, food lovers, brands",
+        "Recipes, videos, newsletters",
+        "Subscriber list",
+        "Books, courses, products, events",
+        "Speaking on food and culture",
+        "Brand sponsorships"
+      ]
+    }
+  ]
+}
+
+==================================================
+13. FINAL VERIFICATION CHECKLIST
+==================================================
+
+Before returning the file, perform a careful implementation audit.
+
+DESIGN
+- The opening hero fills the viewport.
+- The specified video URL is correct.
+- Video autoplay, mute, loop, and object-cover behavior work.
+- The bottom blur mask fades upward and does not darken the video with a gradient.
+- Liquid-glass buttons have the specified thin luminous border.
+- The design uses black, white, and gray instead of the original gold and purple theme.
+- Mobile and desktop navbar behavior is correct.
+- Hero animations and stagger timings are implemented.
+- Search, the author-journey shortcut, Previous/Next controls, and CTA buttons work.
+
+CONTENT
+- The original first objection section is completely replaced.
+- The new section is called “Projected Author Journey”.
+- Every genre renders its corresponding pathway data.
+- Each pathway stage remains in the exact supplied order.
+- All existing sections 02–06 are retained.
+- Existing package prices and timelines are unchanged.
+- Existing quality-control and genre knowledge data remain intact.
+- Reference books and their links remain intact.
+
+TECHNICAL
+- All 39 genre options remain in the existing dropdown.
+- All 39 pathway records are matched to their exact genre keys.
+- No existing data objects were accidentally overwritten.
+- No duplicate IDs or broken anchors were introduced.
+- There are no JavaScript syntax errors or broken event handlers.
+- Genre changes, sliders, mobile-menu controls, and search still work.
+- The page remains responsive and scrollable.
+- The finished result remains a self-contained HTML file.
+
+Do not simply describe these changes. Implement them.
+
+Return the complete modified HTML file as a downloadable artifact. Include a brief summary of what was changed and disclose any checks you could not perform. 
